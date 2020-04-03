@@ -1,0 +1,118 @@
+<scene version="2.0.0">
+	<integrator type="path"/>
+
+    <emitter type="envmap" id="emitter-envmap">
+        <string name="filename" value="envmap.exr" />
+        <float name="scale" value="3" />
+    </emitter>
+
+	<sensor type="perspective">
+		<float name="fov" value="34"/>
+		<string name="fov_axis" value="x"/>
+		<float name="far_clip" value="10000"/>
+		<float name="near_clip" value="0.01"/>
+		<transform name="to_world">
+            <translate z="-4.5"/>
+		</transform>
+
+		<sampler type="independent">
+			<integer name="sample_count" value="256"/>
+		</sampler>
+
+		<film type="hdrfilm">
+			<integer name="height" value="512"/>
+			<integer name="width" value="512"/>
+
+			<rfilter type="gaussian"/>
+		</film>
+	</sensor>
+
+    <bsdf type="plastic" id="bsdf-matpreview">
+        <rgb name="diffuse_reflectance" value="0.940, 0.271, 0.361" />
+        <float name="int_ior" value="1.9" />
+    </bsdf>
+    <shape type="serialized" id="shape-matpreview-exterior">
+        <string name="filename" value="matpreview.serialized" />
+        <integer name="shape_index" value="2" />
+        <transform name="to_world">
+            <rotate x="1" angle="270"/>
+            <rotate y="1" angle="90"/>
+            <scale x="0.8" y="0.8" z="0.8"/>
+            <translate x="0" y="0" z="0"/>
+        </transform>
+        <ref name="bsdf" id="bsdf-matpreview" />
+    </shape>    
+
+    <bsdf type="diffuse" id="bsdf-diffuse">
+        <rgb name="reflectance" value="0.18 0.18 0.18" />
+    </bsdf>
+
+    <shape type="serialized" id="shape-matpreview-interior">
+        <string name="filename" value="matpreview.serialized" />
+        <integer name="shape_index" value="1" />
+        <transform name="to_world">
+            <rotate x="1" angle="270"/>
+            <rotate y="1" angle="90"/>
+            <scale x="0.9" y="0.9" z="0.9"/>
+            <translate x="0" y="-0.9" z="0"/>
+        </transform>
+        <ref name="bsdf" id="bsdf-diffuse" />
+    </shape>
+
+    <texture type="checkerboard" id="texture-checkerboard">
+        <rgb name="color0" value="0.4" />
+        <rgb name="color1" value="0.2" />
+        <transform name="to_uv">
+            <scale x="8.000000" y="8.000000" />
+        </transform>
+    </texture>
+
+    <bsdf type="diffuse" id="bsdf-plane">
+        <ref name="reflectance" id="texture-checkerboard" />
+    </bsdf>
+
+    <shape type="serialized" id="shape-plane">
+        <string name="filename" value="matpreview.serialized" />
+        <integer name="shape_index" value="0" />
+        <transform name="to_world">
+            <rotate x="1" angle="270"/>
+            <rotate y="1" angle="180"/>
+            <scale x="3" y="3" z="3"/>
+            <translate x="0" y="-1" z="0"/>
+        </transform>
+        <ref name="bsdf" id="bsdf-plane" />
+    </shape>
+
+    <bsdf type="polarizer" id="pol00">
+        <spectrum name="theta" value="0"/>
+    </bsdf>
+
+    <shape type="rectangle" name="polar_film0">
+        <transform name="to_world">
+            <scale x="0.5" y="0.5"/>
+            <translate x="0" y="0" z="-1.5"/>
+            <rotate z="1" angle="0"/>
+        </transform>
+   		<ref id="pol00"/>
+    </shape>
+
+    <shape type="rectangle" name="polar_film1">
+        <transform name="to_world">
+            <scale x="0.5" y="0.5"/>
+            <translate x="0.2" y="0.5" z="-1.6"/>
+            <rotate z="1" angle="45"/>
+        </transform>
+   		<ref id="pol00"/>
+    </shape>
+
+    <shape type="rectangle" name="polar_film2">
+        <transform name="to_world">
+            <scale x="0.5" y="0.5"/>
+            <translate x="0.2" y="-0.2" z="-1.7"/>
+            <rotate z="1" angle="90"/>
+        </transform>
+   		<ref id="pol00"/>
+    </shape>
+
+
+</scene>
