@@ -1,2 +1,2 @@
-# lab
-誰かの役に立つかもしれないもの
+# mitsuba_data
+mitsubaのシーンファイル等
